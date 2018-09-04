@@ -1,13 +1,17 @@
 import "./index.scss";
 import React from "react";
 import ReactDOM from "react-dom";
-import { json } from "d3-request";
+import { json } from "d3-fetch";
 import { format } from "d3-format";
 import { nest } from "d3-collection";
 import {
   HorizontalStackedBar,
   HorizontalStackedBarWithTooltip
 } from "./charts/HorizontalStackedBar";
+import {
+  VerticalGroupedBar,
+  VerticalGroupedBarWithTooltip
+} from "./charts/VerticalGroupedBar";
 import { AnnotationBracket } from "react-annotation";
 import { colors } from "./lib/colors";
 import Chart1 from "./Chart1";
@@ -33,13 +37,16 @@ const settings = {
   },
   education_library: {
     init: education_library
+  },
+  chart_5: {
+    init: chart_5
   }
 };
 
 window.renderDataViz = function(el) {
   const id = el.getAttribute("id");
   json(
-    "http://na-data-projects.s3.amazonaws.com/data/epp/adult_training_education_survey.json"
+    "https://na-data-projects.s3.amazonaws.com/data/epp/adult_training_education_survey.json"
   ).then(data => {
     const meta = nest()
       .key(d => d.chart)
@@ -48,8 +55,162 @@ window.renderDataViz = function(el) {
   });
 };
 
-function chart_2(el, id, data, meta) {}
-function chart_3(el, id, data, meta) {}
+function chart_5(el, id, data, meta) {
+  el.classList.add("mw-650");
+  const tooltipTemplate = d => (
+    <div>
+      <div>
+        <div className="tooltip__category">
+          <div className="tooltip__category__list-item">
+            <span className="tooltip__category__list-item__label">Gender:</span>
+            <span className="tooltip__category__list-item__value">{d.x}</span>
+          </div>
+          <div className="tooltip__category__list-item">
+            <span className="tooltip__category__list-item__label">
+              Credential Type:
+            </span>
+            <span className="tooltip__category__list-item__value">{d.key}</span>
+          </div>
+          <div className="tooltip__category__list-item">
+            <span className="tooltip__category__list-item__label">
+              Employment Rate:
+            </span>
+            <span className="tooltip__category__list-item__value">
+              {format(".0%")(+d.value)}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+  ReactDOM.render(
+    <VerticalGroupedBarWithTooltip
+      data={data[id]}
+      title={meta[id][0].title}
+      source={meta[id][0].source}
+      height={400}
+      x={d => d["Preparation Type"]}
+      xFormat={val => val}
+      yFormat={val => format(".0%")(val)}
+      y={d => d.value}
+      keys={Object.keys(data[id][0]).filter(val => val !== "Preparation Type")}
+      margin={{ top: 40, left: 40, right: 0, bottom: 50 }}
+      colors={[
+        colors.turquoise.light,
+        colors.blue.light,
+        colors.purple.light,
+        colors.red.light
+      ]}
+      tooltipTemplate={tooltipTemplate}
+    />,
+    el
+  );
+}
+
+function chart_2(el, id, data, meta) {
+  el.classList.add("mw-650");
+  const tooltipTemplate = d => (
+    <div>
+      <div>
+        <div className="tooltip__category">
+          <div className="tooltip__category__list-item">
+            <span className="tooltip__category__list-item__label">Gender:</span>
+            <span className="tooltip__category__list-item__value">{d.x}</span>
+          </div>
+          <div className="tooltip__category__list-item">
+            <span className="tooltip__category__list-item__label">
+              Credential Type:
+            </span>
+            <span className="tooltip__category__list-item__value">{d.key}</span>
+          </div>
+          <div className="tooltip__category__list-item">
+            <span className="tooltip__category__list-item__label">
+              Employment Rate:
+            </span>
+            <span className="tooltip__category__list-item__value">
+              {format(".0%")(+d.value)}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+  ReactDOM.render(
+    <VerticalGroupedBarWithTooltip
+      data={data[id]}
+      title={meta[id][0].title}
+      source={meta[id][0].source}
+      height={400}
+      x={d => d["Gender"]}
+      xFormat={val => val}
+      yFormat={val => format(".0%")(val)}
+      y={d => d.value}
+      keys={Object.keys(data[id][0]).filter(val => val !== "Gender")}
+      margin={{ top: 40, left: 40, right: 0, bottom: 30 }}
+      colors={[
+        colors.turquoise.light,
+        colors.blue.light,
+        colors.purple.light,
+        colors.red.light
+      ]}
+      tooltipTemplate={tooltipTemplate}
+    />,
+    el
+  );
+}
+function chart_3(el, id, data, meta) {
+  el.classList.add("mw-650");
+  const tooltipTemplate = d => (
+    <div>
+      <div>
+        <div className="tooltip__category">
+          <div className="tooltip__category__list-item">
+            <span className="tooltip__category__list-item__label">
+              Occupation:
+            </span>
+            <span className="tooltip__category__list-item__value">{d.x}</span>
+          </div>
+          <div className="tooltip__category__list-item">
+            <span className="tooltip__category__list-item__label">
+              Credential Type:
+            </span>
+            <span className="tooltip__category__list-item__value">{d.key}</span>
+          </div>
+          <div className="tooltip__category__list-item">
+            <span className="tooltip__category__list-item__label">
+              Employment Rate:
+            </span>
+            <span className="tooltip__category__list-item__value">
+              {format(".0%")(+d.value)}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+  ReactDOM.render(
+    <VerticalGroupedBarWithTooltip
+      data={data[id]}
+      title={meta[id][0].title}
+      source={meta[id][0].source}
+      height={400}
+      x={d => d["Occupation"]}
+      xFormat={val => val}
+      yFormat={val => format(".0%")(val)}
+      y={d => d.value}
+      keys={Object.keys(data[id][0]).filter(val => val !== "Occupation")}
+      margin={{ top: 40, left: 40, right: 0, bottom: 60 }}
+      colors={[
+        colors.turquoise.light,
+        colors.blue.light,
+        colors.purple.light,
+        colors.red.light
+      ]}
+      tooltipTemplate={tooltipTemplate}
+    />,
+    el
+  );
+}
 function computer_occupations(el, id, data, meta) {
   el.classList.add("mw-650");
   ReactDOM.render(

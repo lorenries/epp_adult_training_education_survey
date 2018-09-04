@@ -5,7 +5,7 @@ import { ParentSize } from "@vx/responsive";
 import { Group } from "@vx/group";
 import { AxisBottom, AxisLeft } from "@vx/axis";
 import { scaleBand, scaleLinear, scaleOrdinal } from "@vx/scale";
-import { withTooltip, Tooltip } from "@vx/tooltip";
+import { withTooltip, TooltipWithBounds } from "@vx/tooltip";
 import { localPoint } from "@vx/event";
 import { LegendOrdinal } from "@vx/legend";
 import { max } from "d3-array";
@@ -130,6 +130,7 @@ class HorizontalStackedBar extends React.Component {
                         fill: naColors.grey.dark,
                         fontSize: 12,
                         textAnchor: "end",
+                        width: 30,
                         dy: "0.33em"
                       })}
                     />
@@ -168,7 +169,7 @@ class HorizontalStackedBar extends React.Component {
                   />
                 </div>
                 {tooltipOpen && (
-                  <Tooltip
+                  <TooltipWithBounds
                     top={tooltipTop}
                     left={tooltipLeft}
                     className="tooltip"
@@ -176,7 +177,7 @@ class HorizontalStackedBar extends React.Component {
                     <div className="tooltip__content-container">
                       {tooltipTemplate(tooltipData.data)}
                     </div>
-                  </Tooltip>
+                  </TooltipWithBounds>
                 )}
               </React.Fragment>
             );
