@@ -60,20 +60,17 @@ function chart_5(el, id, data, meta) {
   const tooltipTemplate = d => (
     <div>
       <div>
+        <div className="tooltip__title-container">
+          <h1 className="tooltip__title">{d.x}</h1>
+        </div>
         <div className="tooltip__category">
           <div className="tooltip__category__list-item">
             <span className="tooltip__category__list-item__label">Gender:</span>
-            <span className="tooltip__category__list-item__value">{d.x}</span>
-          </div>
-          <div className="tooltip__category__list-item">
-            <span className="tooltip__category__list-item__label">
-              Credential Type:
-            </span>
             <span className="tooltip__category__list-item__value">{d.key}</span>
           </div>
           <div className="tooltip__category__list-item">
             <span className="tooltip__category__list-item__label">
-              Employment Rate:
+              Share of Nondegree Credential Holders:
             </span>
             <span className="tooltip__category__list-item__value">
               {format(".0%")(+d.value)}
@@ -93,14 +90,10 @@ function chart_5(el, id, data, meta) {
       xFormat={val => val}
       yFormat={val => format(".0%")(val)}
       y={d => d.value}
+      yAxisLabel="Share of Nondegree Credential Holders"
       keys={Object.keys(data[id][0]).filter(val => val !== "Preparation Type")}
-      margin={{ top: 40, left: 40, right: 0, bottom: 50 }}
-      colors={[
-        colors.turquoise.light,
-        colors.blue.light,
-        colors.purple.light,
-        colors.red.light
-      ]}
+      margin={{ top: 40, left: 60, right: 0, bottom: 50 }}
+      colors={[colors.purple.medium, colors.blue.dark]}
       tooltipTemplate={tooltipTemplate}
     />,
     el
@@ -114,13 +107,13 @@ function chart_2(el, id, data, meta) {
       <div>
         <div className="tooltip__category">
           <div className="tooltip__category__list-item">
-            <span className="tooltip__category__list-item__label">Gender:</span>
-            <span className="tooltip__category__list-item__value">{d.x}</span>
-          </div>
-          <div className="tooltip__category__list-item">
             <span className="tooltip__category__list-item__label">
               Credential Type:
             </span>
+            <span className="tooltip__category__list-item__value">{d.x}</span>
+          </div>
+          <div className="tooltip__category__list-item">
+            <span className="tooltip__category__list-item__label">Gender:</span>
             <span className="tooltip__category__list-item__value">{d.key}</span>
           </div>
           <div className="tooltip__category__list-item">
@@ -141,18 +134,14 @@ function chart_2(el, id, data, meta) {
       title={meta[id][0].title}
       source={meta[id][0].source}
       height={400}
-      x={d => d["Gender"]}
+      x={d => d["Credential Type"]}
       xFormat={val => val}
       yFormat={val => format(".0%")(val)}
       y={d => d.value}
-      keys={Object.keys(data[id][0]).filter(val => val !== "Gender")}
-      margin={{ top: 40, left: 40, right: 0, bottom: 30 }}
-      colors={[
-        colors.turquoise.light,
-        colors.blue.light,
-        colors.purple.light,
-        colors.red.light
-      ]}
+      yAxisLabel="Employment Rate"
+      keys={Object.keys(data[id][0]).filter(val => val !== "Credential Type")}
+      margin={{ top: 40, left: 60, right: 0, bottom: 30 }}
+      colors={[colors.purple.medium, colors.blue.dark]}
       tooltipTemplate={tooltipTemplate}
     />,
     el
@@ -198,8 +187,9 @@ function chart_3(el, id, data, meta) {
       xFormat={val => val}
       yFormat={val => format(".0%")(val)}
       y={d => d.value}
+      yAxisLabel="Employment Rate"
       keys={Object.keys(data[id][0]).filter(val => val !== "Occupation")}
-      margin={{ top: 40, left: 40, right: 0, bottom: 60 }}
+      margin={{ top: 40, left: 60, right: 0, bottom: 85 }}
       colors={[
         colors.turquoise.light,
         colors.blue.light,
@@ -212,34 +202,84 @@ function chart_3(el, id, data, meta) {
   );
 }
 function computer_occupations(el, id, data, meta) {
+  const tooltipTemplate = d => (
+    <div>
+      <div>
+        <div className="tooltip__title-container">
+          <h1 className="tooltip__title">{d.y}</h1>
+        </div>
+        <div className="tooltip__category">
+          {Object.keys(d.data).map(
+            val =>
+              val != "Nondegree Credential Type" ? (
+                <div className="tooltip__category__list-item">
+                  <span className="tooltip__category__list-item__label">
+                    {val}:
+                  </span>
+                  <span className="tooltip__category__list-item__value">
+                    {format(".0%")(d.data[val])}
+                  </span>
+                </div>
+              ) : null
+          )}
+        </div>
+      </div>
+    </div>
+  );
   el.classList.add("mw-650");
   ReactDOM.render(
-    <HorizontalStackedBar
+    <HorizontalStackedBarWithTooltip
       data={data[id]}
       title={meta[id][0].title}
       source={meta[id][0].source}
-      height={200}
+      height={250}
       x={d => d.value}
       xFormat={val => format(".0%")(val)}
       y={d => d["Nondegree Credential Type"]}
       keys={Object.keys(data[id][0]).filter(
         val => val !== "Nondegree Credential Type"
       )}
-      margin={{ top: 40, left: 135, right: 15, bottom: 40 }}
+      margin={{ top: 40, left: 150, right: 15, bottom: 40 }}
       colors={[
+        colors.red.dark,
+        colors.red.light,
         colors.turquoise.light,
         colors.blue.light,
-        colors.purple.light,
-        colors.red.light
+        colors.purple.light
       ]}
+      tooltipTemplate={tooltipTemplate}
     />,
     el
   );
 }
 function construction_repair(el, id, data, meta) {
+  const tooltipTemplate = d => (
+    <div>
+      <div>
+        <div className="tooltip__title-container">
+          <h1 className="tooltip__title">{d.y}</h1>
+        </div>
+        <div className="tooltip__category">
+          {Object.keys(d.data).map(
+            val =>
+              val != "Nondegree Credential Type" ? (
+                <div className="tooltip__category__list-item">
+                  <span className="tooltip__category__list-item__label">
+                    {val}:
+                  </span>
+                  <span className="tooltip__category__list-item__value">
+                    {format(".0%")(d.data[val])}
+                  </span>
+                </div>
+              ) : null
+          )}
+        </div>
+      </div>
+    </div>
+  );
   el.classList.add("mw-650");
   ReactDOM.render(
-    <HorizontalStackedBar
+    <HorizontalStackedBarWithTooltip
       data={data[id]}
       title={meta[id][0].title}
       source={meta[id][0].source}
@@ -251,21 +291,47 @@ function construction_repair(el, id, data, meta) {
       keys={Object.keys(data[id][0]).filter(
         val => val !== "Nondegree Credential Type"
       )}
-      margin={{ top: 40, left: 135, right: 15, bottom: 40 }}
+      margin={{ top: 40, left: 150, right: 15, bottom: 40 }}
       colors={[
+        colors.red.dark,
+        colors.red.light,
         colors.turquoise.light,
         colors.blue.light,
-        colors.purple.light,
-        colors.red.light
+        colors.purple.light
       ]}
+      tooltipTemplate={tooltipTemplate}
     />,
     el
   );
 }
 function healthcare(el, id, data, meta) {
+  const tooltipTemplate = d => (
+    <div>
+      <div>
+        <div className="tooltip__title-container">
+          <h1 className="tooltip__title">{d.y}</h1>
+        </div>
+        <div className="tooltip__category">
+          {Object.keys(d.data).map(
+            val =>
+              val != "Nondegree Credential Type" ? (
+                <div className="tooltip__category__list-item">
+                  <span className="tooltip__category__list-item__label">
+                    {val}:
+                  </span>
+                  <span className="tooltip__category__list-item__value">
+                    {format(".0%")(d.data[val])}
+                  </span>
+                </div>
+              ) : null
+          )}
+        </div>
+      </div>
+    </div>
+  );
   el.classList.add("mw-650");
   ReactDOM.render(
-    <HorizontalStackedBar
+    <HorizontalStackedBarWithTooltip
       data={data[id]}
       title={meta[id][0].title}
       source={meta[id][0].source}
@@ -277,21 +343,47 @@ function healthcare(el, id, data, meta) {
       keys={Object.keys(data[id][0]).filter(
         val => val !== "Nondegree Credential Type"
       )}
-      margin={{ top: 40, left: 135, right: 15, bottom: 40 }}
+      margin={{ top: 40, left: 150, right: 15, bottom: 40 }}
       colors={[
+        colors.red.dark,
+        colors.red.light,
         colors.turquoise.light,
         colors.blue.light,
-        colors.purple.light,
-        colors.red.light
+        colors.purple.light
       ]}
+      tooltipTemplate={tooltipTemplate}
     />,
     el
   );
 }
 function education_library(el, id, data, meta) {
+  const tooltipTemplate = d => (
+    <div>
+      <div>
+        <div className="tooltip__title-container">
+          <h1 className="tooltip__title">{d.y}</h1>
+        </div>
+        <div className="tooltip__category">
+          {Object.keys(d.data).map(
+            val =>
+              val != "Nondegree Credential Type" ? (
+                <div className="tooltip__category__list-item">
+                  <span className="tooltip__category__list-item__label">
+                    {val}:
+                  </span>
+                  <span className="tooltip__category__list-item__value">
+                    {format(".0%")(d.data[val])}
+                  </span>
+                </div>
+              ) : null
+          )}
+        </div>
+      </div>
+    </div>
+  );
   el.classList.add("mw-650");
   ReactDOM.render(
-    <HorizontalStackedBar
+    <HorizontalStackedBarWithTooltip
       data={data[id]}
       title={meta[id][0].title}
       source={meta[id][0].source}
@@ -303,13 +395,15 @@ function education_library(el, id, data, meta) {
       keys={Object.keys(data[id][0]).filter(
         val => val !== "Nondegree Credential Type"
       )}
-      margin={{ top: 40, left: 135, right: 15, bottom: 40 }}
+      margin={{ top: 40, left: 150, right: 15, bottom: 40 }}
       colors={[
+        colors.red.dark,
+        colors.red.light,
         colors.turquoise.light,
         colors.blue.light,
-        colors.purple.light,
-        colors.red.light
+        colors.purple.light
       ]}
+      tooltipTemplate={tooltipTemplate}
     />,
     el
   );
@@ -354,7 +448,7 @@ function chart_1(el, id, data, meta) {
       xFormat={val => format(".0%")(val)}
       y={d => d["Occupation"]}
       keys={Object.keys(data[id][0]).filter(val => val !== "Occupation")}
-      margin={{ top: 40, left: 210, right: 150, bottom: 40 }}
+      margin={{ top: 40, left: 210, right: 160, bottom: 40 }}
       colors={[colors.purple.medium, colors.blue.dark]}
       tooltipTemplate={tooltipTemplate}
     />,

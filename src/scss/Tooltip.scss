@@ -119,8 +119,9 @@ $_color-palette: ( na-turquoise: #2ebcb3, na-light-turquoise: #46ccc3, na-dark-t
         font-style: italic;
       }
       &__value {
-        padding-left: 3px;
+        padding-left: 0.25rem;
         color: palette-get(na-black);
+        font-weight: 800;
         line-height: 1.2;
       }
     }

@@ -5,7 +5,7 @@ import { ParentSize } from "@vx/responsive";
 import { Group } from "@vx/group";
 import { AxisBottom, AxisLeft } from "@vx/axis";
 import { scaleBand, scaleLinear, scaleOrdinal } from "@vx/scale";
-import { withTooltip, Tooltip } from "@vx/tooltip";
+import { withTooltip, TooltipWithBounds } from "@vx/tooltip";
 import { localPoint } from "@vx/event";
 import { LegendOrdinal } from "@vx/legend";
 import { max } from "d3-array";
@@ -22,20 +22,17 @@ class Chart1 extends React.Component {
     if (this.props.showTooltip) {
       const coords = localPoint(event.target.ownerSVGElement, event);
       this.props.showTooltip({
-        tooltipLeft: coords.x + 20,
-        tooltipTop: coords.y - 10,
+        tooltipLeft: coords.x,
+        tooltipTop: coords.y,
         tooltipData: datum
       });
     }
   };
 
   render() {
-    const margin = this.props.margin || {
-      top: 40,
-      left: 40,
-      right: 40,
-      bottom: 100
-    };
+    const initialMarginRight = this.props.margin.right;
+    const margin = this.props.margin;
+
     const {
       data,
       title,
@@ -75,6 +72,11 @@ class Chart1 extends React.Component {
       >
         <ParentSize>
           {({ width, height }) => {
+            if (width - margin.left - margin.right < 400) {
+              margin.right = 20;
+            } else {
+              margin.right = initialMarginRight;
+            }
             // bounds
             const xMax = width - margin.left - margin.right;
             const yMax = height - margin.top - margin.bottom;
@@ -131,7 +133,8 @@ class Chart1 extends React.Component {
                         fill: naColors.grey.dark,
                         fontSize: 12,
                         textAnchor: "end",
-                        dy: "0.33em"
+                        width: margin.left,
+                        verticalAnchor: "middle"
                       })}
                     />
                     <AxisBottom
@@ -150,44 +153,54 @@ class Chart1 extends React.Component {
                       })}
                     />
                   </Group>
-                  <AnnotationBracket
-                    x={width - margin.right}
-                    y={margin.top + 10}
-                    dy={87}
-                    dx={20}
-                    depth={25}
-                    color={naColors.turquoise.light}
-                    editMode={false}
-                    note={{ title: "Female Dominated", align: "middle" }}
-                    subject={{ height: 175, type: "curly" }}
-                  />
-                  <AnnotationBracket
-                    x={width - margin.right}
-                    y={226}
-                    dy={104}
-                    dx={20}
-                    depth={25}
-                    color={naColors.grey.medium}
-                    editMode={false}
-                    note={{ title: "Neutral", align: "middle" }}
-                    subject={{ height: 209, type: "curly" }}
-                  />
-                  <AnnotationBracket
-                    x={width - margin.right}
-                    y={436}
-                    dy={87}
-                    dx={20}
-                    depth={25}
-                    color={naColors.blue.dark}
-                    editMode={false}
-                    note={{ title: "Male Dominated", align: "middle" }}
-                    subject={{ height: 174, type: "curly" }}
-                  />
+                  {width - margin.left - margin.right > 400 ? (
+                    <React.Fragment>
+                      <AnnotationBracket
+                        x={width - margin.right}
+                        y={margin.top + 10}
+                        dy={85}
+                        dx={20}
+                        depth={25}
+                        color={naColors.purple.medium}
+                        editMode={false}
+                        note={{
+                          title: "Female-dominated",
+                          align: "middle"
+                        }}
+                        subject={{ height: 175, type: "curly" }}
+                      />
+                      <AnnotationBracket
+                        x={width - margin.right}
+                        y={226}
+                        dy={101}
+                        dx={20}
+                        depth={25}
+                        color={naColors.grey.medium}
+                        editMode={false}
+                        note={{ title: "Neutral", align: "middle" }}
+                        subject={{ height: 209, type: "curly" }}
+                      />
+                      <AnnotationBracket
+                        x={width - margin.right}
+                        y={436}
+                        dy={84}
+                        dx={20}
+                        depth={25}
+                        color={naColors.blue.dark}
+                        editMode={false}
+                        note={{
+                          title: "Male-dominated",
+                          align: "middle"
+                        }}
+                        subject={{ height: 174, type: "curly" }}
+                      />
+                    </React.Fragment>
+                  ) : null}
                 </svg>
                 <div
                   style={{
                     position: "absolute",
-                    top: margin.top / 2 - 10,
+                    top: 0,
                     width: "100%",
                     display: "flex",
                     justifyContent: "center",
@@ -201,7 +214,7 @@ class Chart1 extends React.Component {
                   />
                 </div>
                 {tooltipOpen && (
-                  <Tooltip
+                  <TooltipWithBounds
                     top={tooltipTop}
                     left={tooltipLeft}
                     className="tooltip"
@@ -209,7 +222,7 @@ class Chart1 extends React.Component {
                     <div className="tooltip__content-container">
                       {tooltipTemplate(tooltipData.data)}
                     </div>
-                  </Tooltip>
+                  </TooltipWithBounds>
                 )}
               </React.Fragment>
             );

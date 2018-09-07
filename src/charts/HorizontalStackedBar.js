@@ -21,8 +21,8 @@ class HorizontalStackedBar extends React.Component {
     if (this.props.showTooltip) {
       const coords = localPoint(event.target.ownerSVGElement, event);
       this.props.showTooltip({
-        tooltipLeft: coords.x + 20,
-        tooltipTop: coords.y - 10,
+        tooltipLeft: coords.x,
+        tooltipTop: coords.y,
         tooltipData: datum
       });
     }
@@ -130,8 +130,7 @@ class HorizontalStackedBar extends React.Component {
                         fill: naColors.grey.dark,
                         fontSize: 12,
                         textAnchor: "end",
-                        width: 30,
-                        dy: "0.33em"
+                        verticalAnchor: "middle"
                       })}
                     />
                     <AxisBottom
@@ -155,7 +154,7 @@ class HorizontalStackedBar extends React.Component {
                 <div
                   style={{
                     position: "absolute",
-                    top: margin.top / 2 - 10,
+                    top: 0,
                     width: "100%",
                     display: "flex",
                     justifyContent: "center",
@@ -175,7 +174,7 @@ class HorizontalStackedBar extends React.Component {
                     className="tooltip"
                   >
                     <div className="tooltip__content-container">
-                      {tooltipTemplate(tooltipData.data)}
+                      {tooltipTemplate(tooltipData)}
                     </div>
                   </TooltipWithBounds>
                 )}

@@ -20,8 +20,8 @@ class VerticalGroupedBar extends React.Component {
     if (this.props.showTooltip) {
       const coords = localPoint(event.target.ownerSVGElement, event);
       this.props.showTooltip({
-        tooltipLeft: coords.x + 20,
-        tooltipTop: coords.y - 10,
+        tooltipLeft: coords.x,
+        tooltipTop: coords.y,
         tooltipData: datum
       });
     }
@@ -122,6 +122,11 @@ class VerticalGroupedBar extends React.Component {
                     top={margin.top}
                     left={margin.left}
                     label={yAxisLabel ? yAxisLabel : null}
+                    labelProps={{
+                      fontSize: 12,
+                      fill: naColors.grey.dark,
+                      textAnchor: "middle"
+                    }}
                     stroke={naColors.grey.dark}
                     tickStroke={naColors.grey.dark}
                     tickFormat={yFormat ? yFormat : null}
@@ -138,6 +143,7 @@ class VerticalGroupedBar extends React.Component {
                     left={margin.left}
                     label={xAxisLabel ? xAxisLabel : null}
                     stroke={naColors.grey.dark}
+                    hideTicks={true}
                     tickStroke={naColors.grey.dark}
                     hideAxisLine
                     tickLabelProps={(value, index) => ({
@@ -152,7 +158,7 @@ class VerticalGroupedBar extends React.Component {
                 <div
                   style={{
                     position: "absolute",
-                    top: margin.top / 2 - 10,
+                    top: 0,
                     width: "100%",
                     display: "flex",
                     justifyContent: "center",
