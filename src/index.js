@@ -244,8 +244,8 @@ function computer_occupations(el, id, data, meta) {
         colors.red.dark,
         colors.red.light,
         colors.turquoise.light,
-        colors.blue.light,
-        colors.purple.light
+        colors.turquoise.medium,
+        colors.turquoise.dark
       ]}
       tooltipTemplate={tooltipTemplate}
     />,
@@ -296,8 +296,8 @@ function construction_repair(el, id, data, meta) {
         colors.red.dark,
         colors.red.light,
         colors.turquoise.light,
-        colors.blue.light,
-        colors.purple.light
+        colors.turquoise.medium,
+        colors.turquoise.dark
       ]}
       tooltipTemplate={tooltipTemplate}
     />,
@@ -348,8 +348,8 @@ function healthcare(el, id, data, meta) {
         colors.red.dark,
         colors.red.light,
         colors.turquoise.light,
-        colors.blue.light,
-        colors.purple.light
+        colors.turquoise.medium,
+        colors.turquoise.dark
       ]}
       tooltipTemplate={tooltipTemplate}
     />,
@@ -400,8 +400,8 @@ function education_library(el, id, data, meta) {
         colors.red.dark,
         colors.red.light,
         colors.turquoise.light,
-        colors.blue.light,
-        colors.purple.light
+        colors.turquoise.medium,
+        colors.turquoise.dark
       ]}
       tooltipTemplate={tooltipTemplate}
     />,
