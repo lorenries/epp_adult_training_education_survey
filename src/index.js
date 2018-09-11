@@ -16,6 +16,8 @@ import { AnnotationBracket } from "react-annotation";
 import { colors } from "./lib/colors";
 import Chart1 from "./Chart1";
 
+console.log("hello");
+
 const settings = {
   chart_1: {
     init: chart_1
@@ -44,6 +46,7 @@ const settings = {
 };
 
 window.renderDataViz = function(el) {
+  console.log("render function called", el);
   const id = el.getAttribute("id");
   json(
     "https://na-data-projects.s3.amazonaws.com/data/epp/adult_training_education_survey.json"
@@ -52,10 +55,12 @@ window.renderDataViz = function(el) {
       .key(d => d.chart)
       .object(data.meta);
     settings[id].init(el, id, data, meta);
+    console.log("fetched data", data);
   });
 };
 
 function chart_5(el, id, data, meta) {
+  console.log("component function called");
   el.classList.add("mw-650");
   const tooltipTemplate = d => (
     <div>
