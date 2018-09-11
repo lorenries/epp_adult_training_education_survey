@@ -52,10 +52,12 @@ window.renderDataViz = function(el) {
       .key(d => d.chart)
       .object(data.meta);
     settings[id].init(el, id, data, meta);
+    console.log("data loaded", data, id);
   });
 };
 
 function chart_5(el, id, data, meta) {
+  console.log("chart function called", id);
   el.classList.add("mw-650");
   const tooltipTemplate = d => (
     <div>
