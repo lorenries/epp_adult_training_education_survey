@@ -16,37 +16,34 @@ import { AnnotationBracket } from "react-annotation";
 import { colors } from "./lib/colors";
 import Chart1 from "./Chart1";
 
-console.log("hello");
-
 const settings = {
-  chart_1: {
+  viz__chart_1: {
     init: chart_1
   },
-  chart_2: {
+  viz__chart_2: {
     init: chart_2
   },
-  chart_3: {
+  viz__chart_3: {
     init: chart_3
   },
-  computer_occupations: {
+  viz__computer_occupations: {
     init: computer_occupations
   },
-  construction_repair: {
+  viz__construction_repair: {
     init: construction_repair
   },
-  healthcare: {
+  viz__healthcare: {
     init: healthcare
   },
-  education_library: {
+  viz__education_library: {
     init: education_library
   },
-  chart_5: {
+  viz__chart_5: {
     init: chart_5
   }
 };
 
 window.renderDataViz = function(el) {
-  console.log("render function called", el);
   const id = el.getAttribute("id");
   json(
     "https://na-data-projects.s3.amazonaws.com/data/epp/adult_training_education_survey.json"
@@ -55,12 +52,10 @@ window.renderDataViz = function(el) {
       .key(d => d.chart)
       .object(data.meta);
     settings[id].init(el, id, data, meta);
-    console.log("fetched data", data);
   });
 };
 
 function chart_5(el, id, data, meta) {
-  console.log("component function called");
   el.classList.add("mw-650");
   const tooltipTemplate = d => (
     <div>

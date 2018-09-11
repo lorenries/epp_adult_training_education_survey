@@ -30,15 +30,15 @@ module.exports = env => {
       new HtmlWebpackPlugin({
         title: "",
         chartIDs: [
-          "chart_1",
-          "chart_2",
-          "chart_3",
-          "computer_occupations",
-          "construction_repair",
-          "healthcare",
-          "education_library",
-          "chart_5",
-          "chart_6"
+          "viz__chart_1",
+          "viz__chart_2",
+          "viz__chart_3",
+          "viz__computer_occupations",
+          "viz__construction_repair",
+          "viz__healthcare",
+          "viz__education_library",
+          "viz__chart_5",
+          "viz__chart_6"
         ],
         inject: false,
         template: path.resolve(__dirname, "src/index.html")

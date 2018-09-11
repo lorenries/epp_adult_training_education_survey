@@ -14,11 +14,6 @@ import { colors as naColors } from "../lib/colors";
 class VerticalGroupedBar extends React.Component {
   constructor(props) {
     super(props);
-    console.log("component initialized");
-  }
-
-  componentDidMount() {
-    console.log("component mounted");
   }
 
   handleMouseOver = (event, datum) => {
