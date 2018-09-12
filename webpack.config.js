@@ -4,8 +4,6 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
-const S3Plugin = require("webpack-s3-plugin");
-const FileManagerPlugin = require("filemanager-webpack-plugin");
 
 module.exports = env => {
   //aws s3 sync ./public s3://datadotnewamerica/epp_adult_training_education_survey --exclude '.DS_Store'
