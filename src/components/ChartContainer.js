@@ -12,7 +12,10 @@ const ChartContainer = props => (
       {props.title ? <Title title={props.title} /> : null}
       {props.subtitle ? <Subtitle subtitle={props.subtitle} /> : null}
     </div>
-    <div className="chart__figure" style={{ height: props.height }}>
+    <div
+      className="chart__figure"
+      style={{ height: props.height, maxWidth: props.width, margin: "auto" }}
+    >
       {props.children}
     </div>
     <div className="chart__meta-container">

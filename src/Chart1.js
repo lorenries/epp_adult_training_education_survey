@@ -40,6 +40,7 @@ class Chart1 extends React.Component {
       source,
       x,
       y,
+      width,
       height,
       xFormat,
       yFormat,
@@ -68,6 +69,7 @@ class Chart1 extends React.Component {
         title={title ? title : null}
         subtitle={subtitle ? subtitle : null}
         source={source ? source : null}
+        width={width}
         height={height}
       >
         <ParentSize>
