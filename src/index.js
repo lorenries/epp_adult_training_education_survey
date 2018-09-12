@@ -52,12 +52,10 @@ window.renderDataViz = function(el) {
       .key(d => d.chart)
       .object(data.meta);
     settings[id].init(el, id, data, meta);
-    console.log("data loaded", data, id);
   });
 };
 
 function chart_5(el, id, data, meta) {
-  console.log("chart function called", id);
   el.classList.add("mw-650");
   const tooltipTemplate = d => (
     <div>
@@ -142,7 +140,7 @@ function chart_2(el, id, data, meta) {
       y={d => d.value}
       yAxisLabel="Employment Rate"
       keys={Object.keys(data[id][0]).filter(val => val !== "Credential Type")}
-      margin={{ top: 40, left: 60, right: 0, bottom: 30 }}
+      margin={{ top: 40, left: 60, right: 0, bottom: 40 }}
       colors={[colors.purple.medium, colors.blue.dark]}
       tooltipTemplate={tooltipTemplate}
     />,
@@ -445,6 +443,7 @@ function chart_1(el, id, data, meta) {
       data={data[id]}
       title={meta[id][0].title}
       source={meta[id][0].source}
+      width={1200}
       height={660}
       x={d => d.value}
       xFormat={val => format(".0%")(val)}
