@@ -35,6 +35,8 @@ module.exports = env => {
           "viz__construction_repair",
           "viz__healthcare",
           "viz__education_library",
+          "viz__science",
+          "viz__administrative",
           "viz__chart_5",
           "viz__chart_6"
         ],

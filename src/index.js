@@ -38,6 +38,12 @@ const settings = {
   viz__education_library: {
     init: education_library
   },
+  viz__science: {
+    init: science
+  },
+  viz__administrative: {
+    init: administrative
+  },
   viz__chart_5: {
     init: chart_5
   }
@@ -54,6 +60,110 @@ window.renderDataViz = function(el) {
     settings[id].init(el, id, data, meta);
   });
 };
+
+function science(el, id, data, meta) {
+  const tooltipTemplate = d => (
+    <div>
+      <div>
+        <div className="tooltip__title-container">
+          <h1 className="tooltip__title">{d.y}</h1>
+        </div>
+        <div className="tooltip__category">
+          {Object.keys(d.data).map(
+            val =>
+              val != "Nondegree Credential Type" ? (
+                <div className="tooltip__category__list-item">
+                  <span className="tooltip__category__list-item__label">
+                    {val}:
+                  </span>
+                  <span className="tooltip__category__list-item__value">
+                    {format(".0%")(d.data[val])}
+                  </span>
+                </div>
+              ) : null
+          )}
+        </div>
+      </div>
+    </div>
+  );
+  el.classList.add("mw-650");
+  ReactDOM.render(
+    <HorizontalStackedBarWithTooltip
+      data={data[id]}
+      title={meta[id][0].title}
+      source={meta[id][0].source}
+      height={250}
+      x={d => d.value}
+      xFormat={val => format(".0%")(val)}
+      y={d => d["Nondegree Credential Type"]}
+      keys={Object.keys(data[id][0]).filter(
+        val => val !== "Nondegree Credential Type"
+      )}
+      margin={{ top: 40, left: 150, right: 15, bottom: 40 }}
+      colors={[
+        colors.red.dark,
+        colors.red.light,
+        colors.turquoise.light,
+        colors.turquoise.medium,
+        colors.turquoise.dark
+      ]}
+      tooltipTemplate={tooltipTemplate}
+    />,
+    el
+  );
+}
+
+function administrative(el, id, data, meta) {
+  const tooltipTemplate = d => (
+    <div>
+      <div>
+        <div className="tooltip__title-container">
+          <h1 className="tooltip__title">{d.y}</h1>
+        </div>
+        <div className="tooltip__category">
+          {Object.keys(d.data).map(
+            val =>
+              val != "Nondegree Credential Type" ? (
+                <div className="tooltip__category__list-item">
+                  <span className="tooltip__category__list-item__label">
+                    {val}:
+                  </span>
+                  <span className="tooltip__category__list-item__value">
+                    {format(".0%")(d.data[val])}
+                  </span>
+                </div>
+              ) : null
+          )}
+        </div>
+      </div>
+    </div>
+  );
+  el.classList.add("mw-650");
+  ReactDOM.render(
+    <HorizontalStackedBarWithTooltip
+      data={data[id]}
+      title={meta[id][0].title}
+      source={meta[id][0].source}
+      height={250}
+      x={d => d.value}
+      xFormat={val => format(".0%")(val)}
+      y={d => d["Nondegree Credential Type"]}
+      keys={Object.keys(data[id][0]).filter(
+        val => val !== "Nondegree Credential Type"
+      )}
+      margin={{ top: 40, left: 150, right: 15, bottom: 40 }}
+      colors={[
+        colors.red.dark,
+        colors.red.light,
+        colors.turquoise.light,
+        colors.turquoise.medium,
+        colors.turquoise.dark
+      ]}
+      tooltipTemplate={tooltipTemplate}
+    />,
+    el
+  );
+}
 
 function chart_5(el, id, data, meta) {
   el.classList.add("mw-650");
